@@ -3,6 +3,7 @@ import time
 import requests
 import os.path
 import hashlib
+import pprint
 
 url = 'https://raw.githubusercontent.com/mledoze/countries/master/countries.json'
 
@@ -35,13 +36,18 @@ if __name__ == '__main__':
     with open('countries.json', 'w', encoding='utf-8-sig') as c:
         final_list = []
         for item in Iterator(cou_list):
-            time.sleep(0.3)
             final_list.append(item)
             print(item)
         json.dump(final_list, c, ensure_ascii=False, indent=2)
 
+    def gen(path):
+        with open(path, encoding='utf-8-sig') as p:
+            for i in p:
+                hash_object = hashlib.md5(i.encode())
+                yield hash_object.hexdigest()
+
     file_path = os.path.abspath('countries.json')
-    data = os.path.join(file_path)
-    for item in data:
-        hash_object = hashlib.md5(b'item')
-        print(hash_object.hexdigest())
+    generator = gen(file_path)
+
+    for item in generator:
+        print(item)
