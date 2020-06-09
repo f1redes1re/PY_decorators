@@ -104,7 +104,7 @@ if __name__ == '__main__':
 
             kwarg_dict = {}
             while True:
-                key = input("Введите дополнительный параметр (для остановки введите 'stop': ")
+                key = input("Введите дополнительный параметр (для остановки введите stop): ")
                 if key == 'stop':
                     break
                 else:
